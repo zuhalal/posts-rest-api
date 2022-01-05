@@ -1,61 +1,22 @@
-const express = require('express')
-const Post = require('../models/Post')
+import express from "express"
+
+import { getAllPost, getAPost, postAPost, deletePost, updatePost } from '../controllers/postController.js'
 
 const router = express.Router()
 
 // Get All
-router.get('/', async (req,res)=>{
-    try {
-        const posts = await Post.find()
-        res.json(posts)
-    } catch(err) {
-        res.json({message: err})
-    }
-})
+router.get('/', getAllPost)
 
 // Get Specific Post
-router.get('/:postId', async (req,res)=>{
-    try {
-        const requestedPost = await Post.findById(req.params.postId)
-        res.json(requestedPost)
-    } catch(err) {
-        res.json({message: err})
-    }
-})
+router.get('/:postId', getAPost)
 
 // Post post
-router.post('/', async (req,res)=>{
-    const post = new Post({
-        title: req.body.title,
-        description: req.body.description
-    })
-
-    try {
-        const save = await post.save()
-        res.json(save)
-    } catch(err) {
-        res.json({message: err})
-    }
-})
+router.post('/',postAPost)
 
 // Delete post
-router.delete('/:postId', async (req,res)=>{
-    try {
-        await Post.deleteOne({_id: req.params.postId})
-        res.json({message: "Deleted Succesfully"})
-    } catch(err) {
-        res.json({message: err})
-    }
-})
+router.delete('/:postId', deletePost)
 
 // Update Post
-router.patch('/:postId', async (req,res)=>{
-    try {
-        const updated = await Post.updateOne({_id: req.params.postId}, {$set: req.body})
-        res.json(updated)
-    } catch(err) {
-        res.json({message: err})
-    }
-})
+router.patch('/:postId', updatePost)
 
-module.exports = router
+export default router

@@ -1,15 +1,14 @@
-const express = require('express')
-const mongoose = require('mongoose')
+import express from "express"
+import mongoose from "mongoose"
+import bodyParser from "body-parser"
+import cors from "cors"
+import postsRoute from './routes/posts.js'
+import dontEnv from 'dotenv/config'
+
 const app = express()
-const bodyParser = require('body-parser')
-const cors = require('cors')
 
 app.use(cors())
 app.use(bodyParser.json())
-
-const postsRoute = require('./routes/posts')
-
-require('dotenv/config')
 
 mongoose.connect(process.env.DB_CONNECTION, ()=>{
     console.log("Connected");
