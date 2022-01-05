@@ -4,6 +4,7 @@ import bodyParser from "body-parser"
 import cors from "cors"
 import postsRoute from './routes/posts.js'
 import dontEnv from 'dotenv/config'
+import homeRoute from "./routes/index.js"
 
 const app = express()
 
@@ -16,10 +17,6 @@ mongoose.connect(process.env.DB_CONNECTION, ()=>{
 
 //Middleware
 app.use('/posts', postsRoute)
-
-//Routes
-app.get('/', (req,res)=>{
-    res.send('Hai')
-})
+app.use('/', homeRoute)
 
 app.listen(5000)
