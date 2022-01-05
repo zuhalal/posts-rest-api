@@ -3,7 +3,7 @@ const app = express()
 
 //Routes
 app.get('/', (req,res)=>{
-    res.send('Hai')
+    res.send('Ok')
 })
 
 export default app
